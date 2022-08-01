@@ -2,19 +2,36 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+//child component
 class Square extends React.Component {
+    //calls methods from board component with this.props.etc
     render() {
         return (
-            <button className="square">
-                {/* TODO */}
+            <button className="square"
+                    //click event listener
+                    onClick={() => this.props.onClick()}>
+                {this.props.value}
             </button>
         );
     }
 }
 
+//parent component
 class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+        };
+    }
+
     renderSquare(i) {
-        return <Square />;
+        return (
+        <Square
+            value={this.state.squares[i]}
+            onClick={() => this.handleClick(i)}
+            />
+        );
     }
 
     render() {
